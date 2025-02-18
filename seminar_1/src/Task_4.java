@@ -10,6 +10,10 @@ public class Task_4 {
     }
 
     private static boolean areAnagrams(String s1, String s2) {
-        return s1.contentEquals(new StringBuilder(s2).reverse());
+        char[] str1= s1.toCharArray();
+        char[] str2= s2.toCharArray();
+        Arrays.sort(str1);
+        Arrays.sort(str2);
+        return new String(str1).contentEquals(new String(str2));
     }
 }
