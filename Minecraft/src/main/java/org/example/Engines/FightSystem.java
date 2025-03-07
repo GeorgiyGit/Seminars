@@ -1,6 +1,7 @@
 package org.example.Engines;
 
 
+import org.example.Blocks.EnchantmentTable;
 import org.example.Engines.Damage.Damage;
 import org.example.Engines.Movement.Vector;
 import org.example.Engines.World.IWorldService;
@@ -11,6 +12,7 @@ import org.example.Entities.Creatures.Steve;
 import org.example.Entities.Items.Armor.Armor;
 import org.example.Entities.Items.Enchantments.Enchantments.Armors.FireProtectionEnchantment;
 import org.example.Entities.Items.Enchantments.Enchantments.MeleeWeapons.SharpnessEnchantment;
+import org.example.Entities.Items.Enchantments.IApplyEnchantment;
 import org.example.Entities.Items.Tools.Tool;
 import org.example.Utils.AppContainer;
 
@@ -40,6 +42,8 @@ public class FightSystem {
     }
 
     private void initializeTeam(List<BaseCreature> team, int count){
+        IApplyEnchantment enchantmentTable = new EnchantmentTable();
+
         IWorldService worldService = AppContainer.getContainer().getComponent(WorldService.class);
         IEngine<Damage> damageEngine = (IEngine<Damage>) AppContainer.getContainer().getComponent("DamageEngine");
         for(int i=1;i<count;i++){
@@ -85,10 +89,10 @@ public class FightSystem {
                             worldService,
                             damageEngine);
                     Tool sword = new Tool(rand.nextInt(100),"Sword","Sword",1,3,damageEngine);
-                    sword.applyEnchantment(new SharpnessEnchantment(3,damageEngine));
+                    enchantmentTable.applyEnchantment(new SharpnessEnchantment(3,damageEngine),sword);
                     steveWithSword.getInventory().setItem(sword,0);
                     steveWithSword.setArmor(new Armor(rand.nextInt(100),"Diamond Armor","Armor",1,1,10,20));
-                    steveWithSword.getArmor().applyEnchantment(new FireProtectionEnchantment(2));
+                    enchantmentTable.applyEnchantment(new FireProtectionEnchantment(2),steveWithSword.getArmor());
                     team.add(steveWithSword);
                     break;
             }
