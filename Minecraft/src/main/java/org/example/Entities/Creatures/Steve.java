@@ -2,7 +2,6 @@ package org.example.Entities.Creatures;
 
 
 import org.example.Engines.Damage.Damage;
-import org.example.Engines.Damage.DamageEngine;
 import org.example.Engines.Damage.DamageType;
 import org.example.Engines.IEngine;
 import org.example.Engines.Movement.Vector;
@@ -12,6 +11,8 @@ import org.example.Entities.Items.Armor.Armor;
 import org.example.Entities.Items.Food.Food;
 import org.example.Entities.Items.Item;
 import org.example.Entities.Items.Tools.Tool;
+import org.example.Exceptions.CustomExceptionTypes;
+import org.example.Exceptions.EntityInitializationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,7 @@ public class Steve extends BaseCreature {
     private final IWorldService _worldService;
     private final IEngine<Damage> _damageEngine;
 
-    public Steve(int id,
-                 String name,
+    public Steve(String name,
                  int health,
                  int maxHealth,
                  int attackPower,
@@ -34,10 +34,15 @@ public class Steve extends BaseCreature {
                  boolean godMode,
                  Vector position,
                  IWorldService worldService,
-                 IEngine<Damage> damageEngine) {
-        super(id,name,health,maxHealth,attackPower,defensePower,position,10);
+                 IEngine<Damage> damageEngine) throws EntityInitializationException {
+        super(name,health,maxHealth,attackPower,defensePower,position,10);
+
+        if(maxHunger<0) throw new EntityInitializationException("hunger is negative", CustomExceptionTypes.InitializeNegativeNumber);
         this.maxHunger = maxHunger;
+
         this.godMode=godMode;
+
+        if(worldService==null || damageEngine==null) throw new EntityInitializationException("services are null", CustomExceptionTypes.NullServices);
         _worldService=worldService;
         _damageEngine=damageEngine;
     }

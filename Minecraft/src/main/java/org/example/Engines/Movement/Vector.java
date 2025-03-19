@@ -13,4 +13,8 @@ public class Vector {
     public int getY(){
         return y;
     }
+
+    public double calculateDistanceTo(Vector second) {
+        return Math.sqrt(Math.pow(this.x - second.x, 2) + Math.pow(this.y - second.y, 2));
+    }
 }

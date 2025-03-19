@@ -6,19 +6,20 @@ import org.example.Engines.IEngine;
 import org.example.Engines.MyContext;
 import org.example.Entities.Creatures.BaseCreature;
 import org.example.Entities.Items.Enchantments.IEnchantment;
+import org.example.Entities.Items.Weapons.IAttackStrategy;
 
 public class Bomb extends Tool {
     protected int bombTimer;
     protected boolean isBombActivated;
 
-    public Bomb(int id,
-                String name,
+    public Bomb(String name,
                 String type,
                 int attackPower,
                 int durability,
                 IEngine<Damage> damageEngine,
-                int bombTimer) {
-        super(id, name, type, attackPower, durability, damageEngine);
+                int bombTimer,
+                IAttackStrategy attackStrategy) {
+        super(name, type, attackPower, durability, damageEngine,attackStrategy);
         this.bombTimer=bombTimer;
     }
 

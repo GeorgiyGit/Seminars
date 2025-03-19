@@ -7,7 +7,7 @@ import org.example.Entities.BaseEntity;
 import org.example.Entities.Inventory.Inventory;
 import org.example.Entities.Items.Item;
 
-public abstract class BaseCreature extends BaseEntity {
+public abstract class BaseCreature extends BaseEntity<BaseCreature>  {
     protected String name;
     protected int health;
     protected int maxHealth;
@@ -17,9 +17,8 @@ public abstract class BaseCreature extends BaseEntity {
     protected Vector viewDirection;
     protected Inventory inventory;
 
-    public BaseCreature(int id, String name, int health, int maxHealth, int attackPower, int defensePower, Vector position, int inventoryCount)
+    public BaseCreature(String name, int health, int maxHealth, int attackPower, int defensePower, Vector position, int inventoryCount)
     {
-        super(id);
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -29,8 +28,7 @@ public abstract class BaseCreature extends BaseEntity {
         this.viewDirection = new Vector(0,0);
         this.inventory = new Inventory(inventoryCount);
     }
-    public BaseCreature(int id, String name, int health, int maxHealth, int attackPower, int defensePower, Vector position, Inventory inventory) {
-        super(id);
+    public BaseCreature(String name, int health, int maxHealth, int attackPower, int defensePower, Vector position, Inventory inventory) {
         this.name = name;
         this.health = health;
         this.maxHealth = maxHealth;
@@ -79,5 +77,10 @@ public abstract class BaseCreature extends BaseEntity {
     @Override
     public String toString() {
         return String.format("Name(%s), health(%d), maxHealth(%d), attackPower(%s), defensePower(%d), ", name, health, maxHealth,attackPower,defensePower);
+    }
+
+    @Override
+    public int compareTo(BaseCreature o) {
+        return name.compareTo(o.getName());
     }
 }

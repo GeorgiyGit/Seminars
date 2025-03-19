@@ -6,6 +6,7 @@ import org.example.Entities.BaseEntity;
 import org.example.Entities.Items.Enchantments.EnchantmentWeaponTypes;
 import org.example.Entities.Items.Enchantments.IEnchantable;
 import org.example.Entities.Items.Enchantments.IEnchantment;
+import org.example.Entities.Items.Weapons.IAttackStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +18,21 @@ public abstract class Item extends BaseEntity implements IEnchantable {
     private final String type;
     private final EnchantmentWeaponTypes enchantmentType;
     protected List<IEnchantment> enchantments=new ArrayList<>();
+    private final IAttackStrategy attackStrategy;
 
-    public Item(int id,
-                String name,
+    public Item(String name,
                 int amount,
                 String type,
                 int maxAmount,
                 EnchantmentWeaponTypes enchantmentType,
-                IWorldService worldService) {
-        super(id);
+                IWorldService worldService,
+                IAttackStrategy attackStrategy) {
         this.name = name;
         this.amount = amount;
         this.type = type;
         this.maxAmount = maxAmount;
         this.enchantmentType = enchantmentType;
+        this.attackStrategy=attackStrategy;
     }
 
     public String getName() {
@@ -74,5 +76,9 @@ public abstract class Item extends BaseEntity implements IEnchantable {
 
     public void decrementAmount() {
         amount--;
+    }
+
+    public IAttackStrategy getAttackStrategy() {
+        return attackStrategy;
     }
 }

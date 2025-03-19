@@ -7,8 +7,7 @@ import org.example.Entities.Inventory.Inventory;
 
 public abstract class NPC extends BaseCreature {
 
-    public NPC(int id,
-               String name,
+    public NPC(String name,
                int health,
                int maxHealth,
                int attackPower,
@@ -16,11 +15,10 @@ public abstract class NPC extends BaseCreature {
                Vector position,
                Inventory inventory)
     {
-        super(id,name,health,maxHealth,attackPower,defensePower,position,inventory);
+        super(name,health,maxHealth,attackPower,defensePower,position,inventory);
     }
 
-    public NPC(int id,
-               String name,
+    public NPC(String name,
                int health,
                int maxHealth,
                int attackPower,
@@ -28,6 +26,6 @@ public abstract class NPC extends BaseCreature {
                Vector position,
                int inventoryCount)
     {
-        super(id,name,health,maxHealth,attackPower,defensePower,position,inventoryCount);
+        super(name,health,maxHealth,attackPower,defensePower,position,inventoryCount);
     }
 }

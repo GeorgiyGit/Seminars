@@ -12,6 +12,7 @@ import org.example.Entities.Inventory.Inventory;
 import org.example.Entities.Items.Item;
 import org.example.Entities.Items.Tools.Bomb;
 import org.example.Entities.Items.Tools.Tool;
+import org.example.Entities.Items.Weapons.SwordStrategy;
 import org.example.Utils.AppContainer;
 
 import java.util.ArrayList;
@@ -20,8 +21,7 @@ import java.util.List;
 public class Creeper extends NPC {
     IWorldService _worldService;
     IEngine<Damage> _damageEngine;
-    public Creeper(int id,
-                   String name,
+    public Creeper(String name,
                    int health,
                    int maxHealth,
                    int attackPower,
@@ -29,8 +29,8 @@ public class Creeper extends NPC {
                    Vector position,
                    IWorldService worldService,
                    IEngine<Damage> damageEngine) {
-        super(id,name,health,maxHealth,attackPower,defensePower,position,1);
-        Tool bomb=new Bomb(41,"Bomb","Bomb",10,1, damageEngine,5);
+        super(name,health,maxHealth,attackPower,defensePower,position,1);
+        Tool bomb=new Bomb("Bomb","Bomb",10,1, damageEngine,5,new SwordStrategy(1,5,damageEngine));
         inventory.setItem(bomb,0);
         _worldService=worldService;
         _damageEngine=damageEngine;

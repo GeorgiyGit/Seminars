@@ -12,6 +12,8 @@ import org.example.Entities.Items.Enchantments.EnchantmentWeaponTypes;
 import org.example.Entities.Items.Enchantments.IEnchantment;
 import org.example.Entities.Items.IDurability;
 import org.example.Entities.Items.Item;
+import org.example.Entities.Items.Weapons.IAttackStrategy;
+import org.example.Entities.Items.Weapons.SwordStrategy;
 import org.example.Utils.AppContainer;
 
 public class Tool extends Item implements IDurability {
@@ -19,13 +21,19 @@ public class Tool extends Item implements IDurability {
     protected int durability;
     IEngine<Damage> _damageEngine;
 
-    public Tool(int id,
-                String name,
+    public Tool(String name,
                 String type,
                 int attackPower,
                 int durability,
-                IEngine<Damage> damageEngine) {
-        super(id,name,1,type, 1, EnchantmentWeaponTypes.Tools, AppContainer.getContainer().getComponent(WorldService.class));
+                IEngine<Damage> damageEngine,
+                IAttackStrategy attackStrategy) {
+        super(name,
+                1,
+                type,
+                1,
+                EnchantmentWeaponTypes.Tools,
+                AppContainer.getContainer().getComponent(WorldService.class),
+                attackStrategy);
         this.attackPower=attackPower;
         this.durability = durability;
         _damageEngine=damageEngine;

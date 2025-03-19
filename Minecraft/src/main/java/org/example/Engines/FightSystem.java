@@ -1,6 +1,5 @@
 package org.example.Engines;
 
-
 import org.example.Blocks.EnchantmentTable;
 import org.example.Engines.Damage.Damage;
 import org.example.Engines.Movement.Vector;
@@ -14,6 +13,7 @@ import org.example.Entities.Items.Enchantments.Enchantments.Armors.FireProtectio
 import org.example.Entities.Items.Enchantments.Enchantments.MeleeWeapons.SharpnessEnchantment;
 import org.example.Entities.Items.Enchantments.IApplyEnchantment;
 import org.example.Entities.Items.Tools.Tool;
+import org.example.Entities.Items.Weapons.SwordStrategy;
 import org.example.Utils.AppContainer;
 
 import java.util.ArrayList;
@@ -51,8 +51,7 @@ public class FightSystem {
 
             switch (type){
                 case 0:
-                    Creeper creeper = new Creeper(rand.nextInt(100),
-                            "Entities.Creatures.NPCs.Creeper: "+ i,
+                    Creeper creeper = new Creeper("Entities.Creatures.NPCs.Creeper: "+ i,
                             64,
                             64,
                             3,
@@ -63,37 +62,46 @@ public class FightSystem {
                     team.add(creeper);
                     break;
                 case 1:
-                    Steve steve = new Steve(rand.nextInt(100),
-                            "Entities.Creatures.Steve: "+i,
-                            20,
-                            20,
-                            5,
-                            5,
-                            20,
-                            false,
-                            new Vector(rand.nextInt(20),rand.nextInt(20)),
-                            worldService,
-                            damageEngine);
-                    team.add(steve);
+                    try {
+                        Steve steve = new Steve("Entities.Creatures.Steve: "+i,
+                                20,
+                                20,
+                                5,
+                                5,
+                                20,
+                                false,
+                                new Vector(rand.nextInt(20),rand.nextInt(20)),
+                                worldService,
+                                damageEngine);
+                        team.add(steve);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
-                    Steve steveWithSword = new Steve(rand.nextInt(100),
-                            "ESuper Entities.Creatures.Steve: "+i,
-                            20,
-                            20,
-                            5,
-                            5,
-                            20,
-                            false,
-                            new Vector(rand.nextInt(20),rand.nextInt(20)),
-                            worldService,
-                            damageEngine);
-                    Tool sword = new Tool(rand.nextInt(100),"Sword","Sword",1,3,damageEngine);
-                    enchantmentTable.applyEnchantment(new SharpnessEnchantment(3,damageEngine),sword);
-                    steveWithSword.getInventory().setItem(sword,0);
-                    steveWithSword.setArmor(new Armor(rand.nextInt(100),"Diamond Armor","Armor",1,1,10,20));
-                    enchantmentTable.applyEnchantment(new FireProtectionEnchantment(2),steveWithSword.getArmor());
-                    team.add(steveWithSword);
+                    try {
+                        Steve steveWithSword = new Steve("ESuper Entities.Creatures.Steve: "+i,
+                                20,
+                                20,
+                                5,
+                                5,
+                                20,
+                                false,
+                                new Vector(rand.nextInt(20),rand.nextInt(20)),
+                                worldService,
+                                damageEngine);
+                        Tool sword = new Tool("Sword","Sword",1,3,damageEngine, new SwordStrategy(1,5,damageEngine));
+                        enchantmentTable.applyEnchantment(new SharpnessEnchantment(3,damageEngine),sword);
+                        steveWithSword.getInventory().setItem(sword,0);
+                        steveWithSword.setArmor(new Armor("Diamond Armor","Armor",1,1,10,20,new SwordStrategy(1,5,damageEngine)));
+                        enchantmentTable.applyEnchantment(new FireProtectionEnchantment(2),steveWithSword.getArmor());
+                        team.add(steveWithSword);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
                     break;
             }
         }

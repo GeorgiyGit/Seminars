@@ -14,5 +14,5 @@ public class MyContext {
     public double basicDefence;
     public double calculatedDefence;
     public double basicAttackPower;
-    //public int calculatedAttackPower;
+    public int calculatedAttackPower;
 }
